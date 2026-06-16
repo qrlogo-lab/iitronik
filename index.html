@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ИТРОНИК - Ваш цифровой двойник</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&amp;subset=latin,cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ---------- БАЗОВЫЙ СБРОС ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* ---------- ПЕРЕМЕННЫЕ ---------- */
+        :root {
+            --color-bg-dark: #0a0033;
+            --color-text-white: #ffffff;
+            --color-link-pink: #ff00c8;
+            --color-link-cyan: #21d4fd;
+            --gradient-btn: linear-gradient(0.219turn, rgba(48,172,247,1) 0%, rgba(132,47,243,1) 100%);
+            --gradient-btn-hover: linear-gradient(0.579turn, rgba(48,172,247,1) 0%, rgba(132,47,243,1) 100%);
+            --font-headline: 'Play', Arial, sans-serif;
+            --font-text: 'Montserrat', Arial, sans-serif;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        
+        body {
+            background-color: var(--color-bg-dark);
+            font-family: var(--font-text);
+            font-weight: 300;
+            color: var(--color-text-white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        
+        /* ---------- КОНТЕЙНЕРЫ ---------- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .col {
+            padding: 0 10px;
+            flex: 1;
+        }
+        
+        .col-12 { width: 100%; }
+        .col-6 { width: 50%; }
+        .col-4 { width: 33.333%; }
+        .col-3 { width: 25%; }
+        
+        .text-center { text-align: center; }
+        
+        /* ---------- ЛОГОТИП ---------- */
+        .logo {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 32px;
+            line-height: 1;
+        }
+        
+        .logo-ii {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            color: white;
+            letter-spacing: 2px;
+        }
+        
+        .logo-tronik {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-style: italic;
+            font-weight: 500;
+            color: white;
+        }
+        
+        /* ---------- ХЕДЕР (НЕ ПРИКЛЕЕННЫЙ) ---------- */
+        .header {
+            background-color: var(--color-bg-dark);
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        /* Десктопное меню */
+        .nav-desktop {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-desktop a {
+            color: var(--color-link-pink);
+            font-family: var(--font-text);
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .nav-desktop a:hover {
+            color: var(--color-link-cyan);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--color-text-white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 16px;
+        }
+        
+        .social-icons a:hover {
+            opacity: 1;
+            color: var(--color-link-cyan);
+        }
+        
+        /* Бургер-меню (мобильное) */
+        .burger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: white;
+            z-index: 1001;
+        }
+        
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: var(--color-bg-dark);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 80px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .nav-mobile.open {
+            right: 0;
+        }
+        
+        .nav-mobile a {
+            color: var(--color-link-pink);
+            font-family: var(--font-text);
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .nav-mobile a:hover {
+            color: var(--color-link-cyan);
+        }
+        
+        .nav-mobile .social-icons {
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.open {
+            display: block;
+        }
+        
+        /* ---------- КНОПКИ ---------- */
+        .btn-gradient {
+            display: inline-block;
+            padding: 14px 36px;
+            background: var(--gradient-btn);
+            border-radius: 30px;
+            color: white;
+            font-family: var(--font-text);
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-gradient:hover {
+            background: var(--gradient-btn-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            display: inline-block;
+            padding: 10px 24px;
+            background: transparent;
+            border: 2px solid var(--color-link-cyan);
+            border-radius: 30px;
+            color: var(--color-link-cyan);
+            font-family: var(--font-text);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        /* ---------- СЕКЦИИ ---------- */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-dark {
+            background-color: rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-size: 48px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        
+        /* Карточки кейсов */
+        .case-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .case-card i {
+            font-size: 48px;
+            color: var(--color-link-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .case-card h3 {
+            font-family: var(--font-headline);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-link-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .case-card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .case-card li {
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .case-card .example {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+            font-style: italic;
+        }
+        
+        /* Демо Трампа */
+        .trump-card {
+            background: linear-gradient(135deg, rgba(255,0,200,0.1), rgba(33,212,253,0.1));
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+        }
+        
+        .trump-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-link-pink), var(--color-link-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin: 0 auto 20px;
+        }
+        
+        .question-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        
+        .question-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            color: white;
+            font-family: var(--font-text);
+            font-size: 14px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .question-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .answer-box {
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        /* Цитата */
+        .quote-block {
+            background: linear-gradient(135deg, rgba(255,0,200,0.05), rgba(33,212,253,0.05));
+            border-left: 4px solid var(--color-link-cyan);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .quote-text {
+            font-size: 24px;
+            line-height: 1.4;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .quote-author {
+            font-weight: 700;
+            color: var(--color-link-cyan);
+        }
+        
+        /* FAQ */
+        .faq-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .faq-question {
+            font-family: var(--font-headline);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-link-cyan);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+            padding-top: 0;
+        }
+        
+        .faq-item.open .faq-answer {
+            max-height: 400px;
+            padding-top: 15px;
+        }
+        
+        /* Форма */
+        .form-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 700px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            border: none;
+            color: white;
+            font-family: var(--font-text);
+            font-size: 16px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        /* Видео */
+        .video-placeholder {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 80px 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        /* Футер */
+        .footer {
+            background-color: #05001a;
+            padding: 50px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+        
+        .disclaimer {
+            font-size: 11px;
+            opacity: 0.4;
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        /* ---------- АДАПТИВ ---------- */
+        @media screen and (max-width: 992px) {
+            .col-4 { width: 50%; }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-desktop, .header-inner .social-icons {
+                display: none;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .col-6, .col-4, .col-3 {
+                width: 100%;
+            }
+            
+            .trump-card {
+                padding: 25px;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .quote-text {
+                font-size: 18px;
+            }
+            
+            .btn-gradient {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .case-card {
+                padding: 20px;
+            }
+            
+            .question-btn {
+                font-size: 12px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ХЕДЕР -->
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="/" class="logo">
+                <span class="logo-ii">ii</span><span class="logo-tronik">троник</span>
+            </a>
+            <nav class="nav-desktop">
+                <a href="#howitworks">Как работает</a>
+                <a href="#cases">Примеры</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-vk"></i></a>
+            </div>
+            <div class="burger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Мобильное меню -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<nav class="nav-mobile" id="mobileMenu">
+    <a href="#howitworks" onclick="toggleMenu()">Как работает</a>
+    <a href="#cases" onclick="toggleMenu()">Примеры</a>
+    <a href="#faq" onclick="toggleMenu()">FAQ</a>
+    <a href="#contacts" onclick="toggleMenu()">Контакты</a>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+        <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="#"><i class="fab fa-vk"></i> VK</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="section" style="padding-top: 40px;">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title" style="font-size: 56px;">
+                Представьте, что вас двое.<br>
+                <span style="color: var(--color-link-cyan);">Вы и цифровой Вы - ваш Итроник</span>
+            </h1>
+            <p style="font-size: 18px; margin: 30px 0; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <strong style="color: var(--color-link-pink);">ИТРОНИК</strong> - ваш цифровой двойник на основе искусственного интеллекта.<br>
+                Не помощник. Не бот. <strong>Второй ВЫ.</strong>
+            </p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0 40px;">
+                <div style="background: rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 30px;">
+                    <i class="fas fa-briefcase"></i> Пока ВЫ на сделке - ваш Итроник ведет проект
+                </div>
+                <div style="background: rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 30px;">
+                    <i class="fas fa-bed"></i> Пока ВЫ отдыхаете - ваш Итроник зарабатывает
+                </div>
+            </div>
+            <a href="#form" class="btn-gradient"><i class="fas fa-arrow-down"></i> Увидеть, как это работает</a>
+        </div>
+    </div>
+</section>
+
+
+     
+<!-- ДОБАВЬТЕ ЭТОТ БЛОК В index.html ПОСЛЕ СЕКЦИИ "ДЕМО ТРАМПА" -->
+
+<!-- СЕКЦИЯ: ДВА ЧАТА -->
+<section class="section section-dark" id="demo-chats">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Попробуйте наших агентов</h2>
+            <p class="section-subtitle">
+                Два разных специалиста - один IT-эксперт, другой астролог. <br>
+                Задайте вопрос любому из них прямо сейчас!
+            </p>
+        </div>
+
+        <div class="row" style="gap: 30px; margin-top: 40px;">
+            <!-- ЧАТ 1: Итроник -->
+            <div class="col-6 col" style="min-width: 300px;">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--color-link-cyan);">
+                    💬 Итроник Дмитрия Захарьева
+                </h3>
+                <iframe 
+                    src="/widget/chat-embed.html?agent_id=agent_KtAEbBRT3mHG_KpP-L8na&agent_name=Дмитрий Захарьев"
+                    style="width: 100%; height: 640px; border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);"
+                ></iframe>
+            </div>
+
+            <!-- ЧАТ 2: Астронум -->
+            <div class="col-6 col" style="min-width: 300px;">
+                <h3 style="text-align: center; margin-bottom: 20px; color: var(--color-link-pink);">
+                    🔮 Ироник Дональда Трампа
+                </h3>
+                <iframe 
+                    src="/widget/chat-embed.html?agent_id=agent_cAg5T0OgoYgl9L07mbbpE&agent_name=Дональд Трамп"
+                    style="width: 100%; height: 640px; border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);"
+                ></iframe>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 40px;">
+            <p style="font-size: 18px; margin-bottom: 20px;">
+                Видите разницу? Каждый агент - это отдельная личность со своими знаниями и стилем общения.
+            </p>
+            <a href="#form" class="btn-gradient">Создать своего агента</a>
+        </div>
+    </div>
+</section>
+
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <p style="margin-bottom: 15px;"><i class="fas fa-lightbulb"></i> Представьте, что так решает кейсы ВАШ двойник вместо вас!</p>
+                <a href="#form" class="btn-gradient">Хочу своего ИТРОНИКА</a>
+            </div>
+        </div>
+        
+        <!-- Скоро доступны -->
+        <div class="text-center" style="margin-top: 40px;">
+            <p style="margin-bottom: 20px;">Скоро можно будет спросить у:</p>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div><i class="fas fa-user-circle" style="font-size: 48px; opacity: 0.3;"></i><br>Стив Джобс</div>
+                <div><i class="fas fa-user-circle" style="font-size: 48px; opacity: 0.3;"></i><br>Джефф Безос</div>
+                <div><i class="fas fa-user-circle" style="font-size: 48px; opacity: 0.3;"></i><br>Илон Маск</div>
+            </div>
+            <p style="margin: 20px 0;">Хотите узнать, когда будет готово?</p>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <button class="btn-outline"><i class="fab fa-telegram"></i> Telegram</button>
+                <button class="btn-outline"><i class="fas fa-envelope"></i> Email</button>
+                <button class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ПЕРЕХОД -->
+<section class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Видите?</h2>
+            <p style="font-size: 22px; margin-bottom: 30px;">
+                ИТРОНИК не подсказывает. <strong style="color: var(--color-link-pink);">Он РЕШАЕТ.</strong> Как вы бы решили.
+            </p>
+            <p style="font-size: 18px; opacity: 0.9; max-width: 700px; margin: 0 auto 40px;">
+                Потому что это не бот с алгоритмами.<br>
+                Это <strong>ВЫ в цифре.</strong><br>
+                Ваши ценности. Ваш психотип. Ваша экспертиза.
+            </p>
+            <hr style="margin: 40px auto; width: 100px; border-color: rgba(255,255,255,0.1);">
+            <p style="font-size: 20px; margin: 30px 0;">Представьте, что ВАШ двойник:</p>
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 30px 0;">
+                <div style="background: rgba(255,0,200,0.1); padding: 12px 20px; border-radius: 30px;"><i class="fas fa-comments"></i> Проводит консультации</div>
+                <div style="background: rgba(33,212,253,0.1); padding: 12px 20px; border-radius: 30px;"><i class="fas fa-handshake"></i> Ведет переговоры</div>
+                <div style="background: rgba(255,0,200,0.1); padding: 12px 20px; border-radius: 30px;"><i class="fas fa-brain"></i> Принимает решения</div>
+                <div style="background: rgba(33,212,253,0.1); padding: 12px 20px; border-radius: 30px;"><i class="fas fa-pen-fancy"></i> Пишет контент</div>
+            </div>
+            <a href="#form" class="btn-gradient" style="margin-top: 20px;">Хочу своего ИТРОНИКА</a>
+        </div>
+    </div>
+</section>
+
+<!-- КЕЙСЫ -->
+<section class="section section-dark" id="cases">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Что ИТРОНИК делает вместо вас?</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>ВЕДЕТ БИЗНЕС</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Проводит консультации с клиентами</li>
+                        <li><i class="fas fa-check"></i> Согласовывает проекты</li>
+                        <li><i class="fas fa-check"></i> Принимает решения по стандартным кейсам</li>
+                        <li><i class="fas fa-check"></i> Ведет переписку от вашего имени</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> Бизнес-коуч провел 15 сессий за неделю - сам коуч провел 0. Он был на Бали.</div>
+                </div>
+            </div>
+            
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>ПРИНИМАЕТ РЕШЕНИЯ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Оценивает предложения партнёров</li>
+                        <li><i class="fas fa-check"></i> Выбирает подрядчиков</li>
+                        <li><i class="fas fa-check"></i> Расставляет приоритеты в задачах</li>
+                        <li><i class="fas fa-check"></i> Говорит "нет" мусорным запросам</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> CEO делегировал оперативку ИТРОНИКУ. Прибыль +40% за квартал.</div>
+                </div>
+            </div>
+            
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-pen-fancy"></i>
+                    <h3>СОЗДАЕТ КОНТЕНТ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Пишет посты с вашим мышлением</li>
+                        <li><i class="fas fa-check"></i> Создает статьи с вашей экспертизой</li>
+                        <li><i class="fas fa-check"></i> Генерирует письма клиентам</li>
+                        <li><i class="fas fa-check"></i> Формулирует оффер как вы</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> 20 постов за вечер - ИТРОНИК написал, эксперт только одобрил.</div>
+                </div>
+            </div>
+            
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <h3>ОБУЧАЕТ КОМАНДУ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Дает указания сотрудникам</li>
+                        <li><i class="fas fa-check"></i> Объясняет вашу методологию</li>
+                        <li><i class="fas fa-check"></i> Оценивает результаты работы</li>
+                        <li><i class="fas fa-check"></i> Проводит разборы проектов</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> Команда из 10 человек обучается без участия руководителя.</div>
+                </div>
+            </div>
+            
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>ЗАРАБАТЫВАЕТ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Проводит платные консультации</li>
+                        <li><i class="fas fa-check"></i> Продает ваши продукты/услуги</li>
+                        <li><i class="fas fa-check"></i> Квалифицирует лиды</li>
+                        <li><i class="fas fa-check"></i> Закрывает типовые сделки</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> 50 заявок за ночь - ИТРОНИК квалифицировал и назначил встречи.</div>
+                </div>
+            </div>
+            
+            <div class="col-6 col">
+                <div class="case-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>КРИТИКУЕТ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Оценит вашу идею ДО показа</li>
+                        <li><i class="fas fa-check"></i> Найдет слабые места в проекте</li>
+                        <li><i class="fas fa-check"></i> Предскажет возражения</li>
+                        <li><i class="fas fa-check"></i> Поможет подготовиться к разговору</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> Правок стало в 10 раз меньше после фильтра ИТРОНИКОМ.</div>
+                </div>
+            </div>
+            
+            <div class="col-12 col">
+                <div class="case-card">
+                    <i class="fas fa-infinity"></i>
+                    <h3>ВАШЕ НАСЛЕДИЕ</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Ваш ИТРОНИК будет жить вечно</li>
+                        <li><i class="fas fa-check"></i> Дети смогут спросить совета</li>
+                        <li><i class="fas fa-check"></i> Команда будет учиться у вас</li>
+                        <li><i class="fas fa-check"></i> Ваша экспертиза не исчезнет</li>
+                    </ul>
+                    <div class="example"><i class="fas fa-chart-line"></i> Внуки смогут спросить совета у основателя в 2050 году.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center" style="margin-top: 30px;">
+            <a href="#form" class="btn-gradient">Хочу своего ИТРОНИКА</a>
+        </div>
+    </div>
+</section>
+
+<!-- ЦИТАТА -->
+<section class="section">
+    <div class="container">
+        <div class="quote-block">
+            <p class="quote-text">
+                <i class="fas fa-quote-left"></i> Я заказал цифровую копию не для того, чтобы она отвечала на вопросы. А чтобы она думала так же, как думаю я. Студенты получают не ответы - они получают моё мышление.
+            </p>
+            <p class="quote-author">— Брайан Халлиган, сооснователь HubSpot ($30 млрд)</p>
+        </div>
+        <div class="text-center">
+            <a href="#form" class="btn-gradient">Хочу своего ИТРОНИКА</a>
+        </div>
+    </div>
+</section>
+
+<!-- ВИДЕО -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Как мы создали ИТРОНИК</h2>
+            <div class="video-placeholder" onclick="alert('🎬 Здесь будет видео: Дмитрий Захарьев рассказывает о создании ИТРОНИК')">
+                <i class="fas fa-play-circle" style="font-size: 64px; margin-bottom: 20px;"></i><br>
+                Нажмите, чтобы посмотреть видео<br>
+                <span style="font-size: 14px; opacity: 0.7;">Дмитрий Захарьев: как обучаются двойники, живое демо</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Частые вопросы</h2>
+        </div>
+        
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question"><i class="fas fa-question-circle"></i> Чем ИТРОНИК отличается от чат-бота? <span>+</span></div>
+            <div class="faq-answer">
+                Чат-бот работает по скриптам. ИТРОНИК обучается на вашей ЖИЗНИ: записи консультаций, статьи, книги, посты, реальные кейсы. Результат: цифровой клон вашего мышления.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question"><i class="fas fa-question-circle"></i> ИТРОНИК меня заменит? <span>+</span></div>
+            <div class="faq-answer">
+                Нет. Он вас КЛОНИРУЕТ. Вас станет двое. Один ВЫ делаете уникальное, второй - типовое.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question"><i class="fas fa-question-circle"></i> Он может принимать решения? <span>+</span></div>
+            <div class="faq-answer">
+                Да. Но только те, которым вы его научите. Новое/сложное - передаст вам.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question"><i class="fas fa-question-circle"></i> А если он ошибется? <span>+</span></div>
+            <div class="faq-answer">
+                Вы видите все его действия и можете отключить в любой момент. Плюс он учится на ваших исправлениях.
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-question"><i class="fas fa-question-circle"></i> Сколько стоит? <span>+</span></div>
+            <div class="faq-answer">
+                Первые эксперты работают с нами на особых условиях. Оставьте заявку - обсудим.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ФОРМА -->
+<section class="section section-dark" id="form">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-title">Готовы получить своего ИТРОНИКА?</h2>
+            <p class="section-subtitle">
+                Оставьте заявку - мы расскажем, как получить вашего цифрового двойника.
+            </p>
+        </div>
+        
+        <div class="form-container">
+            <form id="contactForm" onsubmit="event.preventDefault(); alert('Заявка отправлена! Скоро свяжемся.');">
+                <div class="form-group">
+                    <input type="text" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Telegram / WhatsApp / Email" required>
+                </div>
+                <div class="form-group">
+                    <select>
+                        <option>Бизнес-коуч / Консультант</option>
+                        <option>Эксперт / Спикер</option>
+                        <option>Руководитель / CEO</option>
+                        <option>Нутрициолог / Фитнес</option>
+                        <option>Психолог / Терапевт</option>
+                    </select>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" required> Я согласен на обработку данных
+                </div>
+                <button type="submit" class="btn-gradient" style="width: 100%;"><i class="fas fa-rocket"></i> Хочу своего ИТРОНИКА</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="footer" id="contacts">
+    <div class="container">
+        <div class="footer-logo">
+            <a href="/" class="logo">
+                <span class="logo-ii">ii</span><span class="logo-tronik">троник</span>
+            </a>
+        </div>
+        <p style="margin-bottom: 20px;">Ваш цифровой двойник, который работает вместо вас</p>
+        <p style="margin-bottom: 10px;"><i class="fas fa-envelope"></i> hello@itronik.ru</p>
+        <div class="social-icons" style="justify-content: center; margin: 20px 0;">
+            <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="#"><i class="fab fa-vk"></i> VK</a>
+        </div>
+        <p style="margin: 20px 0;">
+            <a href="#" style="color: var(--color-link-cyan);">Политика конфиденциальности</a> | 
+            <a href="#" style="color: var(--color-link-cyan);">Договор-оферта</a>
+        </p>
+        <div class="disclaimer">
+            <i class="fas fa-info-circle"></i> Дисклеймер: ИТРОНИК - ИИ-агент, обученный на материалах эксперта. Не заменяет живую консультацию.
+        </div>
+        <p style="margin-top: 30px; font-size: 12px; opacity: 0.5;">© 2026 ИТРОНИК. Все права защищены.</p>
+    </div>
+</footer>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('open');
+    }
+    
+    let currentAnswer = '';
+    
+    function showTrumpAnswer(btn) {
+        const question = btn.getAttribute('data-question');
+        const answer = btn.getAttribute('data-answer');
+        currentAnswer = answer;
+        
+        document.getElementById('askedQuestion').innerText = question;
+        document.getElementById('trumpResponse').innerHTML = answer;
+        document.getElementById('trumpAnswer').style.display = 'block';
+        document.getElementById('questionButtons').style.display = 'none';
+    }
+    
+    function askCustomQuestion() {
+        const question = document.getElementById('customQuestion').value;
+        if (!question) {
+            alert('Введите вопрос!');
+            return;
+        }
+        currentAnswer = 'Хороший вопрос. Вот что я думаю: в бизнесе нет правильных ответов, есть только решения. Прими решение и иди до конца. Колебания убивают сделки. Действуй!';
+        document.getElementById('askedQuestion').innerText = question;
+        document.getElementById('trumpResponse').innerHTML = currentAnswer;
+        document.getElementById('trumpAnswer').style.display = 'block';
+        document.getElementById('questionButtons').style.display = 'none';
+    }
+    
+    function shareAnswer() {
+        const shareText = `Ответ Трампа: ${currentAnswer}\n\nСоздайте своего итроника на`;
+        if (navigator.share) {
+            navigator.share({
+                title: 'Итроник Дональда Трампа отвечает:',
+                text: shareText,
+                url: 'https://iitronik.ru'
+            }).catch(() => {
+                copyToClipboard(shareText);
+            });
+        } else {
+            copyToClipboard(shareText);
+        }
+    }
+    
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        alert('Ответ скопирован! Поделитесь с друзьями: iitronik.ru');
+    }
+    
+    function resetTrump() {
+        document.getElementById('trumpAnswer').style.display = 'none';
+        document.getElementById('questionButtons').style.display = 'flex';
+        document.getElementById('customQuestion').value = '';
+    }
+    
+    function toggleFaq(item) {
+        item.classList.toggle('open');
+        const plus = item.querySelector('.faq-question span');
+        if (plus) plus.textContent = item.classList.contains('open') ? '−' : '+';
+    }
+    
+    // Назначаем обработчики для кнопок вопросов
+    document.querySelectorAll('.question-btn').forEach(btn => {
+        btn.onclick = () => showTrumpAnswer(btn);
+    });
+</script>
+<!-- ИТРОНИК ЧАТ-ВИДЖЕТ -->
+<style>
+    #itronik-chat-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff00c8, #21d4fd);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(255, 0, 200, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9998;
+        transition: all 0.3s;
+    }
+    
+    #itronik-chat-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(255, 0, 200, 0.6);
+    }
+    
+    #itronik-chat-button i {
+        font-size: 32px;
+        color: white;
+    }
+    
+    #itronik-chat-frame {
+        position: fixed;
+        bottom: 120px;
+        right: 30px;
+        width: 400px;
+        height: 600px;
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        display: none;
+        background: white;
+    }
+    
+    #itronik-chat-frame.open {
+        display: block;
+        animation: slideUp 0.3s ease-out;
+    }
+    
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+        #itronik-chat-frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+        
+        #itronik-chat-button {
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        #itronik-chat-button i {
+            font-size: 28px;
+        }
+    }
+    
+    /* Пульсирующая анимация */
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    #itronik-chat-button.pulse {
+        animation: pulse 2s infinite;
+    }
+</style>
+
+<!-- Кнопка чата -->
+<button id="itronik-chat-button" onclick="toggleChat()">
+    <i class="fas fa-comments"></i>
+</button>
+
+<!-- Iframe с виджетом -->
+<iframe id="itronik-chat-frame" src="/widget/chat.html"></iframe>
+
+<script>
+    let chatOpen = false;
+    
+    function toggleChat() {
+        const frame = document.getElementById('itronik-chat-frame');
+        const button = document.getElementById('itronik-chat-button');
+        
+        chatOpen = !chatOpen;
+        
+        if (chatOpen) {
+            frame.classList.add('open');
+            button.innerHTML = '<i class="fas fa-times"></i>';
+            button.classList.remove('pulse');
+        } else {
+            frame.classList.remove('open');
+            button.innerHTML = '<i class="fas fa-comments"></i>';
+        }
+    }
+    
+    // Слушаем сообщения от виджета
+    window.addEventListener('message', (e) => {
+        if (e.data.type === 'itronik_new_message') {
+            // Показываем уведомление
+            const button = document.getElementById('itronik-chat-button');
+            if (!chatOpen) {
+                button.classList.add('pulse');
+            }
+        }
+    });
+    
+    // Приветственная анимация через 3 секунды
+    setTimeout(() => {
+        const button = document.getElementById('itronik-chat-button');
+        button.classList.add('pulse');
+    }, 3000);
+</script>
+
+</body>
+</html>
