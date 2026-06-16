@@ -1,0 +1,59 @@
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+
+# PHP зависимости
+vendor/
+composer.lock
+
+# Node.js зависимости
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+.directory
+
+# Логи
+*.log
+logs/
+debug.log
+
+# Кеш и временные файлы
+cache/
+tmp/
+temp/
+.cache/
+
+# Дампы баз данных
+*.sql
+*.dump
+
+# Архивы
+*.zip
+*.tar
+*.tar.gz
+
+# Конфигурация разработчика
+.env.development
+local.conf
+
+# Папки загрузок
+uploads/
+downloads/
+
+# Не отслеживаемые ОС файлы
+.AppleDouble
+.LSOverride
+ehthumbs.db
